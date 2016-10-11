@@ -1,0 +1,36 @@
+
+
+Most recent tweets:
+
+Sun Oct 09 23:20:36 +0000 2016: I'm learning node.js
+Sun Oct 09 23:20:24 +0000 2016: Rutgers Coding Bootcamp is great!
+Sun Oct 09 19:59:01 +0000 2016: twitter test
+Sun Oct 09 19:30:12 +0000 2016: test2
+Sun Oct 09 19:30:03 +0000 2016: test
+
+Spotify: 
+
+Artist Name: Megadeth
+Song Name: Holy Wars...The Punishment Due - 2004 Digital Remaster
+Preview URL: https://p.scdn.co/mp3-preview/cb82a269db130e62c6066fac7454aa70db202c75
+Album Name: Rust In Peace
+
+
+OMDB:
+
+Title:Space Jam
+Year:1996
+IMDB Rating: 6.3
+Country:USA
+Language:English
+Plot:Michael Jordan agrees to help the Looney Tunes play a basketball game vs. alien slavers to determine their freedom.
+Actors:Michael Jordan, Wayne Knight, Theresa Randle, Manner Washington
+Rotten Tomatoes Rating:5.1
+Rotten Tomatoes URL:http://www.rottentomatoes.com/m/space_jam/
+
+Spotify: 
+
+Artist Name: Backstreet Boys
+Song Name: I Want It That Way
+Preview URL: https://p.scdn.co/mp3-preview/e72a05dc3f69c891e3390c3ceaa77fad02f6b5f6
+Album Name: The Hits--Chapter One

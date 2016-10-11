@@ -4,7 +4,7 @@ var key=require('./keys.js');
 var twitter=require('twitter');
 var spotify=require('spotify');
 var userInput = process.argv[2];
-// var argument2 = process.argv[3];
+
 
 var argument1="";
 for(i=3; i<process.argv.length; i++){
@@ -20,7 +20,6 @@ var key1 = new twitter({
     access_token_secret: key.twitterKeys.access_token_secret
   });
 
-
 userFunction(userInput, argument1);
 
 function userFunction(userInput, argument){
@@ -29,23 +28,23 @@ function userFunction(userInput, argument){
               twitter1();
               break;
       case "spotify-this-song":
-              spotify1(argument1);
+              spotify1(argument);
               break;
       case "movie-this":
-              movie(argument1);
+              movie(argument);
               break;
       case "do-what-it-says":
-              doWhat();
+              doWhatItSays();
               break;
       default :
               console.log("\nInvalid choice! Please choose from the following:\nmy-tweets\nspotify-this-song\nmovie-this\ndo-what-it-says\n");
     }
 }
 
-
-
 function twitter1(){
       console.log("\nMost recent tweets:\n");
+       logFile("\nMost recent tweets:\n");
+
       var params = {screen_name: '@madmatt722'};
       key1.get('statuses/user_timeline', params, function(error, tweets, response){
           if(!error) {
@@ -53,7 +52,8 @@ function twitter1(){
               if(tweets[i]==undefined){
                 break;
               }
-              console.log(tweets[i].created_at+':'+tweets[i].text);
+              console.log(tweets[i].created_at+': '+tweets[i].text);
+              logFile("\n"+tweets[i].created_at+': '+tweets[i].text)
             }
           }
           else{
@@ -62,28 +62,18 @@ function twitter1(){
       });
 }
 
-// https://developer.spotify.com/web-api/get-track/
-
-//how do i pass in a multi-word song title without using quotation marks?
-
-//within spotify1 function below: used "" instead of undefined because argument1 is concatenated using i +" " at top.
-
 function spotify1(argument1){
+
   var spotify=require('spotify');
 
    if(argument1===""){
       argument1="The Sign Ace of Base";
     }
 
-    //try spotify lookup using the sign's specific id. This worked by putting in Ace of Base in for argument1;
-
-    //above if statement doesnt work with "The Sign" works with "Thriller" though?
-
-    spotify.search({ type: 'track', query: argument1 }, function(err, data) {
-   
-
+  spotify.search({ type: 'track', query: argument1 }, function(err, data) {
     if(err) {
         console.log('Error occurred: ' + err);
+        logFile('\nError occurred: ' + err+ "\n");
         return;
     }
     else if(!err){
@@ -91,11 +81,15 @@ function spotify1(argument1){
       console.log("  Song Name: " + data.tracks.items[0].name);
       console.log("    Preview URL: " + data.tracks.items[0].preview_url);
       console.log("      Album Name: " + data.tracks.items[0].album.name + "\n"+"\n");
-    } 
-  });
-};
+      logFile("\n\nSpotify: ")
+      logFile("\n\nArtist Name: " + data.tracks.items[0].artists[0].name);
+      logFile("\nSong Name: " + data.tracks.items[0].name);
+      logFile("\nPreview URL: " + data.tracks.items[0].preview_url);
+      logFile("\nAlbum Name: " + data.tracks.items[0].album.name + "\n")
+      } 
+    });
+  };
 
-// http://www.omdbapi.com/
 function movie(argument1){
 
 if(argument1===""){
@@ -105,8 +99,9 @@ if(argument1===""){
 
 request(url, function(error, response, body){
   if(!error && response.statusCode == 200) {
+    
     var json = JSON.parse(body);
-    // console.log("\n"+url);
+
     console.log("\nTitle:"+json.Title);
     console.log("Year:"+json.Year);
     console.log("IMDB Rating: "+json.imdbRating);
@@ -116,30 +111,44 @@ request(url, function(error, response, body){
     console.log("Actors:"+json.Actors);
     console.log("Rotten Tomatoes Rating:"+json.tomatoRating);
     console.log("Rotten Tomatoes URL:"+json.tomatoURL);
+    
+    logFile("\n\nOMDB:\n");
+    logFile("\nTitle:"+json.Title);
+    logFile("\nYear:"+json.Year);
+    logFile("\nIMDB Rating: "+json.imdbRating);
+    logFile("\nCountry:"+json.Country);
+    logFile("\nLanguage:"+json.Language);
+    logFile("\nPlot:"+json.Plot);
+    logFile("\nActors:"+json.Actors);
+    logFile("\nRotten Tomatoes Rating:"+json.tomatoRating);
+    logFile("\nRotten Tomatoes URL:"+json.tomatoURL);
   }
-
 });
-
-
-// https://github.com/misterhat/omdb/blob/master/index.js#L237
-  // http://www.omdbapi.com/?i=tt0944947&Season=1
-
-  function doWhat(){
+}
+  function doWhatItSays(){
     fs.readFile("random.txt", "utf-8", function read(err, data){
       if(!err){
-      // console.log(json.data);
-      console.log("do what test");
-      // spotify1("I Want it That Way");
+        var myOwnProcess=data.split(',');
+        userFunction(myOwnProcess[0].trim(), myOwnProcess[1].trim());
+      }else{
+        return console.log(err);
+        }
+      });
     }
 
+  function logFile(data){
+    fs.appendFile('log.txt', data, function(err){
+      if(err){
+        console.log('error');
+      }
     })
   }
 
+  
 
 
 
 
-// });
   
 
 
@@ -150,7 +159,7 @@ request(url, function(error, response, body){
 
 
 
-}
+
 
 
 
