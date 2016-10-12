@@ -4,7 +4,7 @@ var key=require('./keys.js');
 var twitter=require('twitter');
 var spotify=require('spotify');
 var userInput = process.argv[2];
-
+require('terminal-colors');
 
 var argument1="";
 for(i=3; i<process.argv.length; i++){
@@ -42,7 +42,7 @@ function userFunction(userInput, argument){
 }
 
 function twitter1(){
-      console.log("\nMost recent tweets:\n");
+      console.log("\nMost recent tweets:\n".underline.bold.red);
        logFile("\nMost recent tweets:\n");
 
       var params = {screen_name: '@madmatt722'};
@@ -52,7 +52,7 @@ function twitter1(){
               if(tweets[i]==undefined){
                 break;
               }
-              console.log(tweets[i].created_at+': '+tweets[i].text);
+              console.log(tweets[i].created_at.magenta+': '+tweets[i].text.blue);
               logFile("\n"+tweets[i].created_at+': '+tweets[i].text)
             }
           }
@@ -77,10 +77,10 @@ function spotify1(argument1){
         return;
     }
     else if(!err){
-      console.log("\nArtist Name: " + data.tracks.items[0].artists[0].name);
-      console.log("  Song Name: " + data.tracks.items[0].name);
-      console.log("    Preview URL: " + data.tracks.items[0].preview_url);
-      console.log("      Album Name: " + data.tracks.items[0].album.name + "\n"+"\n");
+      console.log("\nArtist Name: ".magenta + data.tracks.items[0].artists[0].name.blue);
+      console.log("  Song Name: ".magenta + data.tracks.items[0].name.blue);
+      console.log("    Preview URL: ".magenta + data.tracks.items[0].preview_url.blue);
+      console.log("      Album Name: ".magenta + data.tracks.items[0].album.name.blue + "\n"+"\n");
       logFile("\n\nSpotify: ")
       logFile("\n\nArtist Name: " + data.tracks.items[0].artists[0].name);
       logFile("\nSong Name: " + data.tracks.items[0].name);
@@ -102,15 +102,15 @@ request(url, function(error, response, body){
     
     var json = JSON.parse(body);
 
-    console.log("\nTitle:"+json.Title);
-    console.log("Year:"+json.Year);
-    console.log("IMDB Rating: "+json.imdbRating);
-    console.log("Country:"+json.Country);
-    console.log("Language:"+json.Language);
-    console.log("Plot:"+json.Plot);
-    console.log("Actors:"+json.Actors);
-    console.log("Rotten Tomatoes Rating:"+json.tomatoRating);
-    console.log("Rotten Tomatoes URL:"+json.tomatoURL);
+    console.log("\nTitle:".magenta+json.Title.blue);
+    console.log("Year:".magenta+json.Year.blue);
+    console.log("IMDB Rating: ".magenta+json.imdbRating.blue);
+    console.log("Country:".magenta+json.Country.blue);
+    console.log("Language:".magenta+json.Language.blue);
+    console.log("Plot:".magenta+json.Plot.blue);
+    console.log("Actors:".magenta+json.Actors.blue);
+    console.log("Rotten Tomatoes Rating:".magenta+json.tomatoRating.blue);
+    console.log("Rotten Tomatoes URL:".magenta+json.tomatoURL.blue);
     
     logFile("\n\nOMDB:\n");
     logFile("\nTitle:"+json.Title);
